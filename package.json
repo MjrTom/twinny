@@ -2,7 +2,7 @@
   "name": "twinny",
   "displayName": "twinny - AI Code Completion and Chat",
   "description": "Locally hosted AI code completion plugin for vscode",
-  "version": "3.22.19",
+  "version": "3.22.26",
   "icon": "assets/icon.png",
   "keywords": [
     "code-inference",
@@ -89,7 +89,7 @@
         {
           "command": "twinny.openChat",
           "group": "navigation@0",
-          "when": "view == twinny.sidebar && twinnyManageTemplates || view == twinny.sidebar && twinnyManageProviders || view == twinny.sidebar && twinnyConversationHistory || view == twinny.sidebar && twinnySymmetryTab || view == twinny.sidebar && twinnyReviewTab || view == twinny.sidebar && twinnyEmbeddingsTab"
+          "when": "view == twinny.sidebar && twinnyManageTemplates || view == twinny.sidebar && twinnyManageProviders || view == twinny.sidebar && twinnyConversationHistory || view == twinny.sidebar && twinnyReviewTab || view == twinny.sidebar && twinnyEmbeddingsTab || view == twinny.sidebar && twinnySymmetryTab"
         },
         {
           "command": "twinny.review",
@@ -536,7 +536,7 @@
     "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.0",
     "string_score": "^0.1.22",
-    "symmetry-core": "^1.0.42",
+    "symmetry-core": "^1.0.45",
     "tippy.js": "^6.3.7",
     "tiptap-markdown": "^0.8.10",
     "toxe": "^1.1.0",

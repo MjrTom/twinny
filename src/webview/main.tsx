@@ -17,8 +17,8 @@ import { Symmetry } from "./symmetry"
 const tabs: Record<string, JSX.Element> = {
   [WEBUI_TABS.settings]: <Settings />,
   [WEBUI_TABS.providers]: <Providers />,
-  [WEBUI_TABS.symmetry]: <Symmetry />,
   [WEBUI_TABS.review]: <Review />,
+  [WEBUI_TABS.symmetry]: <Symmetry />,
   [WEBUI_TABS.embeddings]: <EmbeddingOptions />
 }
 

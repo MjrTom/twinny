@@ -1,27 +1,15 @@
-import React, { FormEventHandler, useEffect } from "react"
+import React, { useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import {
   VSCodeButton,
   VSCodeCheckbox,
   VSCodeDivider,
-  VSCodeDropdown,
-  VSCodeOption,
   VSCodePanelView,
 } from "@vscode/webview-ui-toolkit/react"
 
 import { useSymmetryConnection } from "./hooks"
 
 import styles from "./styles/symmetry.module.css"
-
-const ConnectionStatus = ({ isConnected, connecting }: { isConnected: boolean; connecting: boolean }) => (
-  <span className={isConnected ? styles.connected : styles.disconnected}>
-    {connecting
-      ? "Connecting..."
-      : isConnected
-      ? "Connected"
-      : "Not connected"}
-  </span>
-)
 
 const ProviderConnectionStatus = ({
   isProviderConnected,
@@ -34,46 +22,18 @@ const ProviderConnectionStatus = ({
     {status === "connecting"
       ? "Connecting..."
       : isProviderConnected
-      ? "Connected"
-      : "Not connected"}
+        ? "Connected"
+        : "Not connected"}
   </span>
 )
 
-type VSCodeDropdownHandler = ((e: Event) => unknown) & FormEventHandler<HTMLElement>
-
-const ModelSelector = ({
-  models,
-  selectedModel,
-  onChange,
-  t
-}: {
-  models: Array<{ id: number; model_name: string }>;
-  selectedModel: { id: number } | null;
-  onChange: VSCodeDropdownHandler;
-  t: (key: string) => string;
-}) => (
-  <div className={styles.dropdownContainer}>
-    <label htmlFor="modelSelect">{t("select-model")}</label>
-    {models.length ? (
-      <VSCodeDropdown
-        id="modelSelect"
-        value={selectedModel?.id.toString()}
-        onChange={onChange}
-      >
-        {Array.from(new Set(models.map((model) => model.model_name)))
-          .sort((a, b) => a.localeCompare(b))
-          .map((modelName) => {
-            const model = models.find((m) => m.model_name === modelName)
-            return (
-              <VSCodeOption key={modelName} value={model?.id.toString() ?? ""}>
-                {modelName}
-              </VSCodeOption>
-            )
-          })}
-      </VSCodeDropdown>
-    ) : (
-      <span>{t("loading-available-models")}</span>
-    )}
+const Step = ({ number, title, description }: { number: number; title: string; description: string | React.ReactNode }) => (
+  <div className={styles.step}>
+    <div className={styles.stepNumber}>{number}</div>
+    <div className={styles.stepContent}>
+      <div className={styles.stepTitle}>{title}</div>
+      <div className={styles.stepDescription}>{description}</div>
+    </div>
   </div>
 )
 
@@ -81,17 +41,12 @@ export const Symmetry = () => {
   const { t } = useTranslation()
   const {
     connectAsProvider,
-    connecting,
-    connectToSymmetry,
     disconnectAsProvider,
-    disconnectSymmetry,
-    isConnected,
-    symmetryConnection,
     symmetryProviderStatus,
     autoConnectProviderContext,
     isProviderConnected,
     setAutoConnectProviderContext,
-    models,
+    providers,
     getModels,
     selectedModel,
     setSelectedModel,
@@ -104,18 +59,11 @@ export const Symmetry = () => {
     setAutoConnectProviderContext(target.checked)
   }
 
-  const handleModelChange: VSCodeDropdownHandler = (e) => {
-    const target = e.target as HTMLSelectElement
-    const modelId = Number(target.value)
-    const newSelectedModel = models.find((model) => model.id === modelId) || null
-    setSelectedModel(newSelectedModel)
-  }
-
   useEffect(() => {
-    if (models.length > 0 && !selectedModel) {
-      setSelectedModel(models[0])
+    if (providers.length > 0 && !selectedModel) {
+      setSelectedModel(providers[0])
     }
-  }, [models, selectedModel])
+  }, [providers, selectedModel])
 
   useEffect(() => {
     getModels()
@@ -123,101 +71,103 @@ export const Symmetry = () => {
 
   return (
     <VSCodePanelView className={styles.symmetryContainer}>
-      <div className={styles.symmetryPanel}>
-        <h3>{t("symmetry-inference-network")}</h3>
+      <div>
+        <h3>Become a Symmetry Provider</h3>
 
-        <section>
-          <h4>{t("consumer-connection")}</h4>
-          <div className={styles.statusSection}>
-            <span>{t("status")}: <ConnectionStatus isConnected={isConnected} connecting={connecting} /></span>
-          </div>
+        <div className={styles.stepContainer}>
+          <Step
+            number={1}
+            title="What is a Symmetry Provider?"
+            description="As a provider, you share your GPU resources with other users in the Symmetry network. All connections are peer-to-peer, encrypted end-to-end, and secure."
+          />
 
-          {isConnected && (
-            <div className={styles.providerInfo}>
-              <span><b>{t("provider-name")}:</b> {symmetryConnection?.name}</span>
-              <span><b>{t("model-name")}:</b> {symmetryConnection?.modelName}</span>
-              <span><b>{t("provider-type")}:</b> {symmetryConnection?.provider}</span>
-            </div>
-          )}
-
-          {!isConnected && (
-            <ModelSelector
-              models={models}
-              selectedModel={selectedModel}
-              onChange={handleModelChange}
-              t={t}
-            />
-          )}
-
-          <div className={styles.buttonContainer}>
-            <VSCodeButton
-              disabled={!selectedModel || connecting}
-              onClick={isConnected ? disconnectSymmetry : connectToSymmetry}
-            >
-              {connecting
-                ? t("connecting")
-                : isConnected
-                ? t("disconnect")
-                : t("connect")}
-            </VSCodeButton>
-          </div>
-        </section>
-
-        <VSCodeDivider />
-
-        <section>
-          <h4>{t("provider-connection")}</h4>
-          <div className={styles.statusSection}>
-            <span>{t("status")}:
+          <Step
+            number={2}
+            title="Check Your Connection Status"
+            description={
               <ProviderConnectionStatus
                 isProviderConnected={isProviderConnected}
                 status={symmetryProviderStatus}
               />
-            </span>
-          </div>
+            }
+          />
 
-          <div className={styles.buttonContainer}>
-            <VSCodeButton
-              onClick={isProviderConnected ? disconnectAsProvider : connectAsProvider}
-            >
-              {symmetryProviderStatus === "connecting"
-                ? t("connecting")
-                : isProviderConnected
-                ? t("disconnect")
-                : t("connect")}
-            </VSCodeButton>
-          </div>
+          <Step
+            number={3}
+            title="Connect to the Network"
+            description={
+              <>
+                <div className={styles.infoText}>
+                  Click the button below to connect to the Symmetry network as a provider.
+                </div>
+                <div className={styles.buttonContainer}>
+                  <VSCodeButton
+                    onClick={isProviderConnected ? disconnectAsProvider : connectAsProvider}
+                  >
+                    {symmetryProviderStatus === "connecting"
+                      ? t("connecting")
+                      : isProviderConnected
+                        ? t("disconnect")
+                        : t("connect")}
+                  </VSCodeButton>
+                </div>
+              </>
+            }
+          />
 
-          <div className={styles.checkboxContainer}>
-            <VSCodeCheckbox
-              checked={autoConnectProviderContext}
-              onClick={handleAutoConnectProviderChange}
-            >
-              {t("auto-connect-as-provider")}
-            </VSCodeCheckbox>
-          </div>
-
-          {isProviderConnected && (
-            <div className={styles.infoText}>
-              You should now be visible on the <a href="https://twinny.dev/symmetry" target="_blank" rel="noopener noreferrer">Symmetry providers page</a>.
-              For a more permanent connection, consider using the <code>symmetry-cli</code> package.
-              Visit the <a href="https://github.com/twinnydotdev/symmetry-cli" target="_blank" rel="noopener noreferrer">Symmetry CLI repository</a> to get started.
-            </div>
-          )}
-        </section>
+          <Step
+            number={4}
+            title="Auto-Connect Settings"
+            description={
+              <div className={styles.checkboxContainer}>
+                <VSCodeCheckbox
+                  checked={autoConnectProviderContext}
+                  onClick={handleAutoConnectProviderChange}
+                >
+                  {t("auto-connect-as-provider")}
+                </VSCodeCheckbox>
+              </div>
+            }
+          />
+        </div>
 
         <VSCodeDivider />
 
-        <footer className={styles.footer}>
-          <div className={styles.infoText}>
-            For more information about Symmetry, please refer to our <a href="https://twinnydotdev.github.io/twinny-docs/general/symmetry" target="_blank" rel="noopener noreferrer">documentation</a>.
-          </div>
-          <div className={styles.infoText}>{t("symmetry-description")}</div>
-          <div className={styles.infoText}>{t("share-gpu-resources")}</div>
-          <div className={styles.infoText}>
-            To explore available providers, visit the <a href="https://twinny.dev/symmetry" target="_blank" rel="noopener noreferrer">Symmetry providers page</a>.
-          </div>
-        </footer>
+        {isProviderConnected ? (
+          <section>
+            <h4>🎉 Successfully Connected!</h4>
+            <div className={styles.infoText}>
+              You are now visible on the <a href="https://twinny.dev/symmetry" target="_blank" rel="noopener noreferrer">Symmetry providers page</a>.
+              Other users can connect to your provider and use your GPU resources.
+            </div>
+            <div className={styles.infoText}>
+              <b>For a more permanent connection:</b> Consider using the <code>symmetry-cli</code> package.
+              Visit the <a href="https://github.com/twinnydotdev/symmetry-cli" target="_blank" rel="noopener noreferrer">Symmetry CLI repository</a> to get started.
+            </div>
+          </section>
+        ) : (
+          <section>
+            <h4>Benefits of Being a Provider</h4>
+            <div className={styles.infoText}>
+              • Share your GPU resources with the community
+            </div>
+            <div className={styles.infoText}>
+              • Help others access AI capabilities
+            </div>
+            <div className={styles.infoText}>
+              • All connections are secure and encrypted
+            </div>
+            <div className={styles.infoText}>
+              • Easy to set up and configure
+            </div>
+          </section>
+        )}
+
+        <div className={styles.infoText}>
+          <a href="https://twinny.dev/symmetry" target="_blank" rel="noopener noreferrer">
+            Visit the Symmetry providers page
+          </a> to see all available providers in the network.
+        </div>
       </div>
     </VSCodePanelView>
   )
