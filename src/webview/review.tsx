@@ -1,4 +1,5 @@
 import React, { FormEvent, useEffect } from "react"
+import DOMPurify from "dompurify"
 import { useTranslation } from "react-i18next"
 import { VSCodeButton, VSCodeTextField } from "@vscode/webview-ui-toolkit/react"
 
@@ -78,7 +79,7 @@ export const Review = () => {
             {prs.map((pr) => (
               <li key={pr.number} className={styles.prItem}>
                 <span className={styles.prTitle}>
-                  <a href={pr.html_url}>
+                  <a href={DOMPurify.sanitize(pr.html_url)}>
                     {pr.title} (#{pr.number})
                   </a>
                 </span>
