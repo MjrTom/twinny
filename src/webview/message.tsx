@@ -150,8 +150,9 @@ export const Message: React.FC<MessageProps> = ({
   const handleDelete = useCallback(() => onDelete?.(index), [onDelete, index])
 
   const extractMentionsFromHtml = (content: string): MentionType[] => {
+    const sanitizedContent = DOMPurify.sanitize(content)
     const parser = new DOMParser()
-    const doc = parser.parseFromString(content, "text/html")
+    const doc = parser.parseFromString(sanitizedContent, "text/html")
     const mentions: MentionType[] = []
 
     doc.querySelectorAll(".mention").forEach((mention) => {
