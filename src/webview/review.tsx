@@ -9,6 +9,7 @@ import { useGithubPRs, useGlobalContext } from "./hooks"
 
 import styles from "./styles/review.module.css"
 
+
 export const Review = () => {
   const { t } = useTranslation()
   const { prs, getPrs, startReview, isLoading } = useGithubPRs()
@@ -79,9 +80,13 @@ export const Review = () => {
             {prs.map((pr) => (
               <li key={pr.number} className={styles.prItem}>
                 <span className={styles.prTitle}>
-                  <a href={DOMPurify.sanitize(pr.html_url)}>
-                    {pr.title} (#{pr.number})
-                  </a>
+                  {isTrustedUrl(pr.html_url) ? (
+                    <a href={DOMPurify.sanitize(pr.html_url)}>
+                      {pr.title} (#{pr.number})
+                    </a>
+                  ) : (
+                    <span>{pr.title} (#{pr.number})</span>
+                  )}
                 </span>
                 <VSCodeButton
                   onClick={() => handleStartReview(pr.number, pr.title)}
