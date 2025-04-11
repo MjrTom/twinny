@@ -190,8 +190,8 @@ export const Message: React.FC<MessageProps> = ({
     const doc = parser.parseFromString(editorContent, "text/html")
     const mentions = Array.from(doc.querySelectorAll(".mention")).map(
       (mention) => {
-        const filePath = mention.getAttribute("data-id")
-        const label = mention.getAttribute("data-label")
+        const filePath = DOMPurify.sanitize(mention.getAttribute("data-id"))
+        const label = DOMPurify.sanitize(mention.getAttribute("data-label"))
         if (filePath && label) {
           mention.outerHTML = `<span class="mention" data-type="mention" data-id="${filePath}" data-label="${label}">@${label}</span>`
         }
