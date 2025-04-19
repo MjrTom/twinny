@@ -520,7 +520,7 @@
     "handlebars": "^4.7.8",
     "handlebars-loader": "^1.7.3",
     "hypercore-crypto": "^3.4.2",
-    "hyperswarm": "^4.7.15",
+    "hyperswarm": "^4.11.5",
     "i18next": "^23.16.5",
     "i18next-http-backend": "^2.6.2",
     "ignore": "^6.0.2",
