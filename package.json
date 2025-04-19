@@ -521,7 +521,7 @@
     "handlebars-loader": "^1.7.3",
     "hypercore-crypto": "^3.6.0",
     "hyperswarm": "^4.11.5",
-    "i18next": "^23.16.5",
+    "i18next": "^25.0.0",
     "i18next-http-backend": "^3.0.2",
     "ignore": "^7.0.3",
     "js-yaml": "^4.1.0",
