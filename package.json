@@ -468,7 +468,7 @@
     "@types/cheerio": "^0.22.35",
     "@types/js-yaml": "^4.0.9",
     "@types/minimatch": "^5.1.2",
-    "@types/mocha": "^10.0.6",
+    "@types/mocha": "^10.0.10",
     "@types/node": "^22.14.1",
     "@types/react-dom": "^19.1.2",
     "@types/react-syntax-highlighter": "^15.5.11",
