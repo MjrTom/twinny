@@ -502,7 +502,7 @@
     "@tiptap/extension-mention": "^2.5.9",
     "@tiptap/extension-placeholder": "^2.5.9",
     "@tiptap/pm": "^2.5.9",
-    "@tiptap/react": "^2.5.9",
+    "@tiptap/react": "^2.11.7",
     "@tiptap/starter-kit": "^2.11.7",
     "@tiptap/suggestion": "^2.5.9",
     "@types/react": "^18.2.46",
