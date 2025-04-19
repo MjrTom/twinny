@@ -615,12 +615,12 @@ export class Chat extends Base {
       $("img").remove()
 
       const text = $.html("body").replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
         .replace(/<body>|<\/body>/g, "")
         .replace(/@problems/g, "").trim()
         .replace(/@workspace/g, "").trim()
-        .replace(/&amp;/g, "&")
-        .replace(/&gt;/g, ">")
         .replace(/<span[^>]*data-type="mention"[^>]*>(.*?)<\/span>/g, "$1")
+        .replace(/&amp;/g, "&")
         .trimStart()
 
       const images = message.images?.map((img) => ({
