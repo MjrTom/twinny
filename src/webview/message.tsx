@@ -371,10 +371,11 @@ export const Message: React.FC<MessageProps> = ({
             console.warn(`Invalid image source: ${imageSrc}`)
             return null
           }
+          const sanitizedImageSrc = DOMPurify.sanitize(imageSrc)
           return (
             <div key={index} className={styles.imageContainer}>
               <img
-                src={imageSrc}
+                src={sanitizedImageSrc}
                 className={styles.chatImageSquare}
                 alt=""
                 loading="lazy"
