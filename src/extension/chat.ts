@@ -597,9 +597,9 @@ export class Chat extends Base {
       return {
         ...message,
         conversationId: id || message.id, // Preserve the conversationId
-        content: stringContent.replace(/&amp;/g, "&")
-        .replace(/&lt;/g, "<")
+        content: stringContent.replace(/&lt;/g, "<")
         .replace(/&gt;/g, ">")
+        .replace(/&amp;/g, "&")
         .replace(/@problems/g, "").trim()
         .replace(/@workspace/g, "").trim()
         .replace(/<span[^>]*data-type="mention"[^>]*>(.*?)<\/span>/g, "$1")
