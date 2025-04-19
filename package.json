@@ -510,7 +510,7 @@
     "@vscode/webview-ui-toolkit": "^1.4.0",
     "@wasm-tool/wasm-pack-plugin": "^1.7.0",
     "async-lock": "^1.4.1",
-    "b4a": "^1.6.6",
+    "b4a": "^1.6.7",
     "cheerio": "^1.0.0",
     "classnames": "^2.5.1",
     "dompurify": "^3.2.3",
