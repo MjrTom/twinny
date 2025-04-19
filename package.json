@@ -463,7 +463,7 @@
     "watch": "node scripts/build.mjs --watch"
   },
   "devDependencies": {
-    "@hyrious/esbuild-plugin-commonjs": "^0.2.4",
+    "@hyrious/esbuild-plugin-commonjs": "^0.2.5",
     "@types/async-lock": "^1.4.2",
     "@types/cheerio": "^0.22.35",
     "@types/js-yaml": "^4.0.9",
