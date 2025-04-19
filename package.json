@@ -490,7 +490,7 @@
     "jest": "^29.7.0",
     "mocha": "^10.3.0",
     "rimraf": "^6.0.1",
-    "style-loader": "^3.3.3",
+    "style-loader": "^4.0.0",
     "tree-sitter-wasms": "^0.1.7",
     "ts-loader": "^9.5.1",
     "typescript": "^5.8.3",
