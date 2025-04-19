@@ -356,19 +356,33 @@ export const Message: React.FC<MessageProps> = ({
     const maxImages = 10
     const limitedImages = images.slice(0, maxImages)
 
+    const isValidImageSrc = (src: string): boolean => {
+      // Allow only HTTP(S) URLs or base64-encoded images
+      const urlPattern = /^(https?:\/\/[^\s]+)$/i
+      const base64Pattern = /^data:image\/(png|jpeg|jpg|gif|webp);base64,[a-zA-Z0-9+/=]+$/i
+      return urlPattern.test(src) || base64Pattern.test(src)
+    }
+
     return (
       <div className={styles.imageGallery}>
-        {limitedImages.map((img, index) => (
-          <div key={index} className={styles.imageContainer}>
-            <img
-              src={(img as ImageAttachment).data}
-              className={styles.chatImageSquare}
-              alt=""
-              loading="lazy"
-              style={{ maxWidth: "200px", maxHeight: "200px" }}
-            />
-          </div>
-        ))}
+        {limitedImages.map((img, index) => {
+          const imageSrc = (img as ImageAttachment).data
+          if (!isValidImageSrc(imageSrc)) {
+            console.warn(`Invalid image source: ${imageSrc}`)
+            return null
+          }
+          return (
+            <div key={index} className={styles.imageContainer}>
+              <img
+                src={imageSrc}
+                className={styles.chatImageSquare}
+                alt=""
+                loading="lazy"
+                style={{ maxWidth: "200px", maxHeight: "200px" }}
+              />
+            </div>
+          )
+        })}
         {images.length > maxImages && (
           <div style={{ color: "#888", marginTop: 8 }}>
             {`+${images.length - maxImages} more image(s) not shown for performance`}
