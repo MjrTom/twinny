@@ -519,7 +519,7 @@
     "fuse.js": "^7.1.0",
     "handlebars": "^4.7.8",
     "handlebars-loader": "^1.7.3",
-    "hypercore-crypto": "^3.4.2",
+    "hypercore-crypto": "^3.6.0",
     "hyperswarm": "^4.11.5",
     "i18next": "^23.16.5",
     "i18next-http-backend": "^2.6.2",
