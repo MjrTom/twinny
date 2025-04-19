@@ -480,7 +480,7 @@
     "@typescript-eslint/parser": "^8.30.1",
     "@vscode/test-cli": "^0.0.10",
     "@vscode/test-electron": "^2.5.2",
-    "@vscode/vsce": "^3.1.1",
+    "@vscode/vsce": "^3.3.2",
     "copy-webpack-plugin": "^13.0.0",
     "css-loader": "^6.8.1",
     "esbuild": "^0.25.2",
