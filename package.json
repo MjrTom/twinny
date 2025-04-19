@@ -499,7 +499,7 @@
   "dependencies": {
     "@lancedb/lancedb": "^0.18.2",
     "@tiptap/extension-image": "^2.11.7",
-    "@tiptap/extension-mention": "^2.5.9",
+    "@tiptap/extension-mention": "^2.11.7",
     "@tiptap/extension-placeholder": "^2.11.7",
     "@tiptap/pm": "^2.5.9",
     "@tiptap/react": "^2.11.7",
