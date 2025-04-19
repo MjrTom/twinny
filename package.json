@@ -536,7 +536,7 @@
     "react-syntax-highlighter": "^15.5.0",
     "react-virtuoso": "^4.12.6",
     "rehype-raw": "^7.0.0",
-    "remark-gfm": "^4.0.0",
+    "remark-gfm": "^4.0.1",
     "string_score": "^0.1.22",
     "symmetry-core": "^1.0.45",
     "tippy.js": "^6.3.7",
