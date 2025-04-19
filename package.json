@@ -494,7 +494,7 @@
     "tree-sitter-wasms": "^0.1.12",
     "ts-loader": "^9.5.2",
     "typescript": "^5.8.3",
-    "web-tree-sitter": "^0.22.1"
+    "web-tree-sitter": "^0.25.3"
   },
   "dependencies": {
     "@lancedb/lancedb": "^0.18.2",
